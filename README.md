@@ -46,4 +46,4 @@ var_dump($iPaymu->paymentPage($urlReturn, $urlNotify , $urlCancel));
 ```
 
 
-Jika ada bug, silahkan membuat issue pada bitbucket.
+Jika ada bug, silahkan membuat issue.
