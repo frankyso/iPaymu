@@ -111,7 +111,7 @@
 		 * @throws InvalidArgumentException
 		 */
 
-		public function generatePaymentPage($urlReturn = '', $urlNotify='' , $urlCancel = '')
+		public function paymentPage($urlReturn = '', $urlNotify='' , $urlCancel = '')
 		{
 
 			$urlReturn 	=	isset($urlReturn)?$urlReturn:$this->urlReturn;
