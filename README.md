@@ -3,14 +3,13 @@
 
 ---
 
-####Instantiation
-Ada beberapa metode yang berbeda yang tersedia untuk membuat contoh baru dari iPaymu Class ini. Pertama ada constructor. Ini menimpa parent constructor yang Anda untuk mebaca parameter pertama yang ada.
+####Inisialisasi
+Ada 2 metode yang dapat digunakan untuk menginisialisasikan class ini metode pertama yaitu constructor:
 
 
 ```php
 $iPaymu = new iPaymu('apiKey iPaymu Anda');
 ```
-
 parameter pertama yang digunakan adalah API iPaymu Anda, API dapat Anda temukan pada dashboard iPaymu.
 
 metode kedua adalah dengan metode statis:
