@@ -1,5 +1,8 @@
 <?php 
-	namespace App\Http\Utilities;
+	/**
+	 * @author Franky So <frankyso.mail@gmail.com>
+	 */
+	namespace iPaymu;
 	class iPaymu
 	{
 		public $apiKey;
