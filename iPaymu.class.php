@@ -12,6 +12,8 @@
 		public $products 	=	array();
 		public $payment;
 
+		protected productListModified 	=	true;
+
 		function __construct($apiKey='')
 		{
 			$this->setApiKey($apiKey);
@@ -30,8 +32,8 @@
 		public function __get($name)
 		{
 		    switch (true) {
-		        // case $name === 'paymentPage':
-		        //     return (int) $this->generatePaymentPage();
+		        case $name === 'paymentPage':
+		            return $this->paymentPage();
 
 		        case $name === 'balance':
 		            return (int) $this->checkBalance();
@@ -101,6 +103,7 @@
 			$this->products['price'][]		=	$price;
 			$this->products['qty'][]		=	$qty;
 			$this->products['comment'][]	=	$comment;
+			$this->productListModified 		=	true;
 		}
 
 
@@ -116,6 +119,9 @@
 
 		public function paymentPage($urlReturn = '', $urlNotify='' , $urlCancel = '')
 		{
+			if ($this->productListModified==false) {
+				return $this->payment;
+			}
 
 			$urlReturn 	=	isset($urlReturn)?$urlReturn:$this->urlReturn;
 			$urlNotify 	=	isset($urlNotify)?$urlNotify:$this->urlNotify;
