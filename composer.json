@@ -3,7 +3,17 @@
   "description": "iPaymu PHP Package",
   "type": "library",
   "require-dev": {
-    "guzzlehttp/guzzle": "^6.5@dev"
+    "phpunit/phpunit": "^8.5@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "frankyso\\iPaymu\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
   },
   "license": "GPL-3.0",
   "authors": [
@@ -13,5 +23,8 @@
     }
   ],
   "minimum-stability": "dev",
-  "require": {}
+  "require": {
+    "ext-curl": "*",
+    "php": ">=5.3.0"
+  }
 }

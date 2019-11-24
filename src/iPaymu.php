@@ -17,55 +17,15 @@ class iPaymu
      */
     protected $apiKey;
     protected $products = [];
+    protected $debug = false;
 
-    public function __construct($apiKey = null)
+    protected $responseFormat = "json";
+
+    public function __construct($apiKey = null, $responseFormat = "json", $debug = false)
     {
         $this->setApiKey($apiKey);
-    }
-
-    /**
-     * Check if an attribute exists on the object
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function __isset($name)
-    {
-        try {
-            $this->__get($name);
-        } catch (InvalidArgumentException $e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Get a part of the iPaymu object
-     *
-     * @param string $name
-     *
-     * @return string|int
-     * @throws InvalidArgumentException
-     *
-     */
-
-    public function __get($name)
-    {
-        switch (true) {
-            case $name === 'paymentPage':
-                return $this->paymentPage();
-
-            case $name === 'balance':
-                return (int)$this->checkBalance();
-
-            case $name === 'status':
-                return (int)$this->checkStatus();
-
-            default:
-                throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
-        }
+        $this->setResponseFormat($responseFormat);
+        $this->setDebug($debug);
     }
 
     public function getApiKey()
@@ -79,6 +39,38 @@ class iPaymu
             throw new ApiKeyNotFound();
         }
         $this->apiKey = $apiKey;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDebug()
+    {
+        return $this->debug;
+    }
+
+    /**
+     * @param bool $debug
+     */
+    public function setDebug($debug)
+    {
+        $this->debug = $debug;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResponseFormat()
+    {
+        return $this->responseFormat;
+    }
+
+    /**
+     * @param string $responseFormat
+     */
+    public function setResponseFormat($responseFormat)
+    {
+        $this->responseFormat = $responseFormat;
     }
 
     /**
@@ -99,6 +91,28 @@ class iPaymu
         return true;
     }
 
+    private function post($resource, $params)
+    {
+        $params_string = http_build_query($params);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $resource);
+        curl_setopt($ch, CURLOPT_POST, count($params));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params_string);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+        $request = curl_exec($ch);
+
+        if ($request === false) {
+            echo 'Curl Error: ' . curl_error($ch);
+        } else {
+            return $result = json_decode($request, true);
+        }
+
+        curl_close($ch);
+        exit;
+    }
+
     /**
      * Add Product into transaction
      *
@@ -117,6 +131,17 @@ class iPaymu
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * Check Balance
+     */
+    public function checkBalance()
+    {
+        $response = $this->post(Resource::$BALANCE, [
+            "key" => $this->apiKey,
+            "format" => $this->responseFormat
+        ]);
     }
 }
 
