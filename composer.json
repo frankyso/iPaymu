@@ -1,0 +1,17 @@
+{
+  "name": "frankyso/ipaymu-php",
+  "description": "iPaymu PHP Package",
+  "type": "library",
+  "require-dev": {
+    "guzzlehttp/guzzle": "^6.5@dev"
+  },
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Franky So",
+      "email": "frankyso.mail@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {}
+}
