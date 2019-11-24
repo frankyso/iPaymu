@@ -7,32 +7,114 @@ namespace frankyso\iPaymu;
 
 use frankyso\iPaymu\Exceptions\ApiKeyInvalid;
 use frankyso\iPaymu\Exceptions\ApiKeyNotFound;
+use frankyso\iPaymu\Traits\CurlTrait;
 
 class iPaymu
 {
+    use CurlTrait;
+
     /**
      * iPaymu Api Key
      *
-     * @var
+     * @var $apiKey
      */
     protected $apiKey;
-    protected $products = [];
-    protected $debug = false;
 
-    protected $responseFormat = "json";
+    /**
+     * @var $cart Cart, Cart Object Builder
+     */
+    protected $cart;
 
-    public function __construct($apiKey = null, $responseFormat = "json", $debug = false)
+    /**
+     * @var $ureturn , Url redirect after payment page
+     */
+    protected $ureturn;
+
+    /**
+     * @var $unotify , Url Notify when transaction paid
+     */
+    protected $unotify;
+
+    /**
+     * @var $ucancel , Url Redirect when user cancel the transaction
+     */
+    protected $ucancel;
+
+    /**
+     * iPaymu constructor.
+     * @param null $apiKey
+     * @throws ApiKeyNotFound
+     */
+    public function __construct($apiKey = null)
     {
         $this->setApiKey($apiKey);
-        $this->setResponseFormat($responseFormat);
-        $this->setDebug($debug);
+        $this->cart = new Cart($this);
     }
 
+    /**
+     * Set Api Key
+     *
+     * @return mixed
+     */
     public function getApiKey()
     {
         return $this->apiKey;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUreturn()
+    {
+        return $this->ureturn;
+    }
+
+    /**
+     * @param mixed $ureturn
+     */
+    public function setUreturn($ureturn): void
+    {
+        $this->ureturn = $ureturn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUcancel()
+    {
+        return $this->ucancel;
+    }
+
+    /**
+     * @param mixed $ucancel
+     */
+    public function setUcancel($ucancel): void
+    {
+        $this->ucancel = $ucancel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUnotify()
+    {
+        return $this->unotify;
+    }
+
+    /**
+     * @param mixed $unotify
+     */
+    public function setUnotify($unotify): void
+    {
+        $this->unotify = $unotify;
+    }
+
+    /**
+     * Get ApiKey Value
+     *
+     * @param null $apiKey Api Key from iPaymu Dashboard.
+     * @throws ApiKeyNotFound
+     */
     public function setApiKey($apiKey = null)
     {
         if ($apiKey == null) {
@@ -42,6 +124,8 @@ class iPaymu
     }
 
     /**
+     * Check if on debug
+     *
      * @return bool
      */
     public function isDebug()
@@ -50,6 +134,8 @@ class iPaymu
     }
 
     /**
+     * Set Debug value
+     *
      * @param bool $debug
      */
     public function setDebug($debug)
@@ -58,79 +144,19 @@ class iPaymu
     }
 
     /**
-     * @return string
-     */
-    public function getResponseFormat()
-    {
-        return $this->responseFormat;
-    }
-
-    /**
-     * @param string $responseFormat
-     */
-    public function setResponseFormat($responseFormat)
-    {
-        $this->responseFormat = $responseFormat;
-    }
-
-    /**
+     * Check if Api Key inserted is valid or not
+     *
      * @return bool
      * @throws \Exception
      */
     public function isApiKeyValid()
     {
-        $result = file_get_contents("https://my.ipaymu.com/api/CekSaldo.php?key=" . $this->apiKey . "&format=json");
-        if (isset($result->Status)) {
-            if ($result->Status == "-1001") {
-                throw new ApiKeyInvalid($result->Keterangan, $result->status);
-            } else {
-                return true;
-            }
+        try {
+            $this->checkBalance();
+            return true;
+        } catch (ApiKeyInvalid $e) {
+            return false;
         }
-
-        return true;
-    }
-
-    private function post($resource, $params)
-    {
-        $params_string = http_build_query($params);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $resource);
-        curl_setopt($ch, CURLOPT_POST, count($params));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $params_string);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-
-        $request = curl_exec($ch);
-
-        if ($request === false) {
-            echo 'Curl Error: ' . curl_error($ch);
-        } else {
-            return $result = json_decode($request, true);
-        }
-
-        curl_close($ch);
-        exit;
-    }
-
-    /**
-     * Add Product into transaction
-     *
-     * @param Product $product
-     */
-    public function addProduct(Product $product)
-    {
-        $this->products[] = $product;
-    }
-
-    /**
-     * get Added product from transaction
-     *
-     * @return array
-     */
-    public function getProducts()
-    {
-        return $this->products;
     }
 
     /**
@@ -140,8 +166,15 @@ class iPaymu
     {
         $response = $this->post(Resource::$BALANCE, [
             "key" => $this->apiKey,
-            "format" => $this->responseFormat
+            "format" => 'json'
         ]);
+
+        return $response;
+    }
+
+    public function cart()
+    {
+        return $this->cart;
     }
 }
 

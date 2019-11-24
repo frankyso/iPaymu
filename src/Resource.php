@@ -5,7 +5,6 @@
 
 namespace frankyso\iPaymu;
 
-
 class Resource
 {
     static public $BALANCE = "https://my.ipaymu.com/api/saldo";
