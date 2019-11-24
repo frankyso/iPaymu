@@ -124,26 +124,6 @@ class iPaymu
     }
 
     /**
-     * Check if on debug
-     *
-     * @return bool
-     */
-    public function isDebug()
-    {
-        return $this->debug;
-    }
-
-    /**
-     * Set Debug value
-     *
-     * @param bool $debug
-     */
-    public function setDebug($debug)
-    {
-        $this->debug = $debug;
-    }
-
-    /**
      * Check if Api Key inserted is valid or not
      *
      * @return bool

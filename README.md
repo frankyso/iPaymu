@@ -1,48 +1,93 @@
-# iPaymu.class
-### Made simple iPaymu API
+# iPaymu-php
+<p align="center">
+  <a href="https://github.com/frankyso/iPaymu/blob/master/LICENSE">
+    <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
+  </a>
+  <a href="https://github.com/frankyso/iPaymu-changelog">
+    <img src="https://img.shields.io/badge/changelog-iPaymu-brightgreen.svg" alt="gitmoji-changelog">
+  </a>
+</p>
 
----
+The easiest way to integrate your website into [iPaymu payment gateway](https://ipaymu.com).
 
-### Inisialisasi
-Ada 2 metode yang dapat digunakan untuk menginisialisasikan class ini metode pertama yaitu constructor:
-
-
-```php
-$iPaymu = new iPaymu('apiKey iPaymu Anda');
+## Installation
+The best way to use this package is using [composer](https://getcomposer.org/)
 ```
-parameter pertama yang digunakan adalah API iPaymu Anda, API dapat Anda temukan pada dashboard iPaymu.
-
-metode kedua adalah dengan metode statis:
-
-```php
-$iPaymu = iPaymu\iPaymu::api('apiKey iPaymu Anda');
+composer require frankyso/ipaymu
 ```
 
-### Mengecek Saldo
-untuk mengecek saldo Anda pada iPaymu Anda dapat mengikuti contoh dibawah ini:
+## Usage
+### Check Balance
 ```php
-$iPaymu = iPaymu\iPaymu::api('apiKey iPaymu Anda');
-echo $iPaymu->balance;
+<?php
+use frankyso\iPaymu\iPaymu;
+
+$iPaymu = new iPaymu('your-api-key');
+$iPaymu->checkBalance();
 ```
 
-### Mengecek Status
-untuk mengecek status Anda pada iPaymu Anda dapat mengikuti contoh dibawah ini:
+### Check API Key Validity
 ```php
-$iPaymu = iPaymu\iPaymu::api('apiKey iPaymu Anda');
-echo $iPaymu->status;
+<?php
+use frankyso\iPaymu\iPaymu;
+
+$iPaymu = new iPaymu('your-api-key');
+$iPaymu->isApiKeyValid();
 ```
 
-### Mengecek Transaksi
+### Add Product to Cart
 ```php
-$iPaymu = iPaymu\iPaymu::api('apiKey iPaymu Anda');
-var_dump($iPaymu->transaction($id_transaksi));
+<?php
+use frankyso\iPaymu\iPaymu;
+
+$iPaymu = new iPaymu('your-api-key');
+$cart = $iPaymu->cart();
+
+$product = new \frankyso\iPaymu\Product();
+$product->id = "1231";
+$product->name = "Soap";
+$product->price = 12000;
+$cart->add($product);
 ```
 
-### Transaksi Baru
+### Remove Product From Cart
 ```php
-$iPaymu = iPaymu\iPaymu::api('apiKey iPaymu Anda');
-$iPaymu->addProduct('nama produk', 'Harga Produk', 'Jumlah Produk', 'Keterangan Produk');
-var_dump($iPaymu->paymentPage($urlReturn, $urlNotify , $urlCancel));
+<?php
+use frankyso\iPaymu\iPaymu;
+
+$iPaymu = new iPaymu('your-api-key');
+$cart = $iPaymu->cart();
+$cart->remove(1231);
 ```
 
-Jika ada bug, silahkan membuat issue.
+### Checkout Transaction
+in this package we use cart type transaction so you must checkout after adding your product 
+```php
+<?php
+use frankyso\iPaymu\iPaymu;
+
+$iPaymu = new iPaymu('your-api-key');
+$cart = $iPaymu->cart();
+
+$product = new \frankyso\iPaymu\Product();
+$product->id = "1231";
+$product->name = "Soap";
+$product->price = 12000;
+$cart->add($product);
+
+$product = new \frankyso\iPaymu\Product();
+$product->id = "1231";
+$product->name = "Soap";
+$product->price = 12000;
+
+$cart->add($product);
+
+$cart->checkout();
+```
+
+
+## Authors
+
+* **Franky So** - *Initial work* - [Konnco](https://github.com/konnco)
+
+See also the list of [contributors](https://github.com/frankyso/iPaymu/contributors) who participated in this project.
