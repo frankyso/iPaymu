@@ -76,7 +76,6 @@ use frankyso\iPaymu\iPaymu;
 $iPaymu = new iPaymu('your-api-key');
 $iPaymu->checkTransaction("transaction-id");
 ```
-```
 
 ## Authors
 
