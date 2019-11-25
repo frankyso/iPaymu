@@ -19,13 +19,7 @@ final class CartTest extends TestCase
         $iPaymu = new iPaymu($_SERVER['APP_KEY']);
 
         for ($x = 0; $x <= 10; $x++) {
-            $product = new Product();
-            $product->id = $faker->uuid;
-            $product->name = $faker->name;
-            $product->price = rand(10000, 1000000);
-            $product->quantity = rand(1, 5);
-
-            $iPaymu->cart()->add($product);
+            $iPaymu->cart()->add($faker->uuid, $faker->name, rand(1, 5), rand(10000, 1000000));
         }
     }
 
@@ -35,14 +29,9 @@ final class CartTest extends TestCase
         $iPaymu = new iPaymu($_SERVER['APP_KEY']);
 
         for ($x = 0; $x <= 10; $x++) {
-            $product = new Product();
-            $product->id = $faker->uuid;
-            $product->name = $faker->name;
-            $product->price = rand(10000, 1000000);
-            $product->quantity = rand(1, 5);
-
-            $iPaymu->cart()->add($product);
-            $iPaymu->cart()->remove($product->id);
+            $id = $faker->uuid;
+            $iPaymu->cart()->add($id, $faker->name, rand(1, 5), rand(10000, 1000000));
+            $iPaymu->cart()->remove($id);
         }
     }
 
@@ -52,13 +41,7 @@ final class CartTest extends TestCase
         $iPaymu = new iPaymu($_SERVER['APP_KEY']);
 
         for ($x = 0; $x <= 3; $x++) {
-            $product = new Product();
-            $product->id = $faker->uuid;
-            $product->name = $faker->name;
-            $product->price = rand(10000, 1000000);
-            $product->quantity = rand(1, 5);
-
-            $iPaymu->cart()->add($product);
+            $iPaymu->cart()->add($faker->uuid, $faker->name, rand(1, 5), rand(10000, 1000000));
         }
 
         $response = $iPaymu->cart()->checkout("no comment");

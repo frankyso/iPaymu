@@ -72,7 +72,7 @@ class iPaymu
     /**
      * @param mixed $ureturn
      */
-    public function setUreturn($ureturn): void
+    public function setUreturn($ureturn)
     {
         $this->ureturn = $ureturn;
     }
@@ -88,7 +88,7 @@ class iPaymu
     /**
      * @param mixed $ucancel
      */
-    public function setUcancel($ucancel): void
+    public function setUcancel($ucancel)
     {
         $this->ucancel = $ucancel;
     }
@@ -104,7 +104,7 @@ class iPaymu
     /**
      * @param mixed $unotify
      */
-    public function setUnotify($unotify): void
+    public function setUnotify($unotify)
     {
         $this->unotify = $unotify;
     }
@@ -144,7 +144,7 @@ class iPaymu
      */
     public function checkBalance()
     {
-        $response = $this->post(Resource::$BALANCE, [
+        $response = $this->request(Resource::$BALANCE, [
             "key" => $this->apiKey,
             "format" => 'json'
         ]);
@@ -152,9 +152,27 @@ class iPaymu
         return $response;
     }
 
+    /**
+     * Get Cart Object
+     *
+     * @return Cart
+     */
     public function cart()
     {
         return $this->cart;
+    }
+
+    /**
+     * Check Transactions
+     *
+     * @deprecated
+     */
+    public function checkTransaction($id)
+    {
+        return $this->request(Resource::$TRANSACTION, [
+            'key' => $this->apiKey,
+            'id' => $id
+        ]);
     }
 }
 

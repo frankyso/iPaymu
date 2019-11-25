@@ -15,7 +15,7 @@ trait CurlTrait
      * @return mixed
      * @throws ApiKeyInvalid
      */
-    public function post($resource, $params)
+    public function request($resource, $params)
     {
         $params_string = http_build_query($params);
         $ch = curl_init();

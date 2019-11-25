@@ -41,13 +41,7 @@ $iPaymu->isApiKeyValid();
 use frankyso\iPaymu\iPaymu;
 
 $iPaymu = new iPaymu('your-api-key');
-$cart = $iPaymu->cart();
-
-$product = new \frankyso\iPaymu\Product();
-$product->id = "1231";
-$product->name = "Soap";
-$product->price = 12000;
-$cart->add($product);
+$cart = $iPaymu->cart()->add("id","product-name", 'product-quantity','product-price');
 ```
 
 ### Remove Product From Cart
@@ -57,7 +51,7 @@ use frankyso\iPaymu\iPaymu;
 
 $iPaymu = new iPaymu('your-api-key');
 $cart = $iPaymu->cart();
-$cart->remove(1231);
+$cart->remove('product-id');
 ```
 
 ### Checkout Transaction
@@ -67,24 +61,22 @@ in this package we use cart type transaction so you must checkout after adding y
 use frankyso\iPaymu\iPaymu;
 
 $iPaymu = new iPaymu('your-api-key');
-$cart = $iPaymu->cart();
+$cart = $iPaymu->cart()->add("id","product-name", 'product-quantity','product-price');
 
-$product = new \frankyso\iPaymu\Product();
-$product->id = "1231";
-$product->name = "Soap";
-$product->price = 12000;
-$cart->add($product);
-
-$product = new \frankyso\iPaymu\Product();
-$product->id = "1231";
-$product->name = "Soap";
-$product->price = 12000;
-
-$cart->add($product);
 
 $cart->checkout();
 ```
 
+### Check Transaction Status - @deprecated
+To checking your account transaction status (deposit, transfer, send money).
+```php
+<?php
+use frankyso\iPaymu\iPaymu;
+
+$iPaymu = new iPaymu('your-api-key');
+$iPaymu->checkTransaction("transaction-id");
+```
+```
 
 ## Authors
 

@@ -9,6 +9,7 @@ class Resource
 {
     static public $BALANCE = "https://my.ipaymu.com/api/saldo";
     static public $TRANSACTION = "https://my.ipaymu.com/api/transaksi";
+    static public $CHECK_TRANSACTION = "https://my.ipaymu.com/api/transaksi";
     static public $PAYMENT = "https://my.ipaymu.com/payment";
 
     // will be developed next release

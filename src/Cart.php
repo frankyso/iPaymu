@@ -5,7 +5,6 @@
 
 namespace frankyso\iPaymu;
 
-
 class Cart
 {
     protected $iPaymu;
@@ -23,9 +22,14 @@ class Cart
     /**
      * @param Product $product
      */
-    public function add(Product $product)
+    public function add($id, $name, $quantity, $price)
     {
-        $this->items[] = $product;
+        $this->items[] = [
+            'id' => $id,
+            'name' => $name,
+            'quantity' => $quantity,
+            'price' => $price,
+        ];
     }
 
     /**
@@ -34,7 +38,7 @@ class Cart
     public function remove($id)
     {
         foreach ($this->items as $key => $item) {
-            if ($item->id == $id) {
+            if ($item['id'] == $id) {
                 unset($this->items[$key]);
             }
         }
@@ -46,7 +50,7 @@ class Cart
      */
     public function checkout($comments = "")
     {
-        return $this->iPaymu->post(Resource::$PAYMENT, $this->buildParams($comments));
+        return $this->iPaymu->request(Resource::$PAYMENT, $this->buildParams($comments));
     }
 
     /**
@@ -60,11 +64,10 @@ class Cart
         $productsQty = [];
 
         foreach ($this->items as $item) {
-            $productsName[] = $item->name;
-            $productsPrice[] = $item->price;
-            $productsQty[] = $item->quantity;
+            $productsName[] = $item['name'];
+            $productsPrice[] = $item['price'];
+            $productsQty[] = $item['quantity'];
         }
-
 
         $params['key'] = $this->iPaymu->getApiKey();
         $params['payment'] = 'payment';
