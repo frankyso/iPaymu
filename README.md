@@ -17,6 +17,41 @@ composer require frankyso/ipaymu
 ```
 
 ## Usage
+
+### Initialization
+```php
+<?php
+use frankyso\iPaymu\iPaymu;
+
+$iPaymu = new iPaymu('your-api-key', ['ureturn','unotify','ucancel']);
+```
+### Set UReturn URL
+```php
+<?php
+use frankyso\iPaymu\iPaymu;
+
+$iPaymu = new iPaymu('your-api-key');
+$iPaymu->setUreturn('https://your-website');
+```
+
+### Set Unotify URL
+```php
+<?php
+use frankyso\iPaymu\iPaymu;
+
+$iPaymu = new iPaymu('your-api-key');
+$iPaymu->setUnotify('https://your-website');
+```
+
+### Set UCancel URL
+```php
+<?php
+use frankyso\iPaymu\iPaymu;
+
+$iPaymu = new iPaymu('your-api-key');
+$iPaymu->setUcancel('https://your-website');
+```
+
 ### Check Balance
 ```php
 <?php
@@ -67,8 +102,11 @@ $cart = $iPaymu->cart()->add("id","product-name", 'product-quantity','product-pr
 $cart->checkout();
 ```
 
-### Check Transaction Status - @deprecated
+### ~~Check Transaction Status - @deprecated~~
 To checking your account transaction status (deposit, transfer, send money).
+
+to be honest, this endpoint still working, but somehow i cannot find `transaction-id` from any other endpoint.
+
 ```php
 <?php
 use frankyso\iPaymu\iPaymu;

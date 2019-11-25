@@ -43,12 +43,16 @@ class iPaymu
     /**
      * iPaymu constructor.
      * @param null $apiKey
+     * @param array $url
      * @throws ApiKeyNotFound
      */
-    public function __construct($apiKey = null)
+    public function __construct($apiKey = null, $url = ["", "", ""])
     {
         $this->setApiKey($apiKey);
         $this->cart = new Cart($this);
+        $this->setUcancel($url[0]);
+        $this->setUreturn($url[1]);
+        $this->setUnotify($url[2]);
     }
 
     /**
