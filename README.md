@@ -1,5 +1,7 @@
 # iPaymu-php
 <p align="center">
+  [![Build Status](https://travis-ci.org/frankyso/php-notifications.svg?branch=master)](https://travis -ci.org/ frankyso/ipaymu)
+  
   <a href="https://github.com/frankyso/iPaymu/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
   </a>
