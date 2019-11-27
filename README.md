@@ -1,14 +1,13 @@
-# iPaymu-php
-<p align="center">
-  [![Build Status](https://travis-ci.org/frankyso/php-notifications.svg?branch=master)](https://travis -ci.org/ frankyso/ipaymu)
-  
-  <a href="https://github.com/frankyso/iPaymu/blob/master/LICENSE">
-    <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
-  </a>
-  <a href="https://github.com/frankyso/iPaymu-changelog">
-    <img src="https://img.shields.io/badge/changelog-iPaymu-brightgreen.svg" alt="gitmoji-changelog">
-  </a>
-</p>
+iPaymu-php
+==============
+
+iPaymu-PHP API Library helps you integrate your website to iPaymu more easy.
+
+[![Build Status](https://travis-ci.org/frankyso/ipaymu.svg?branch=4.x)](https://travis-ci.org/frankyso/ipaymu)
+[![Latest Stable Version](https://poser.pugx.org/frankyso/ipaymu/v/stable)](https://packagist.org/packages/frankyso/ipaymu)
+[![Total Downloads](https://poser.pugx.org/frankyso/ipaymu/downloads)](https://packagist.org/packages/frankyso/ipaymu)
+[![Latest Unstable Version](https://poser.pugx.org/frankyso/ipaymu/v/unstable)](https://packagist.org/packages/frankyso/ipaymu)
+[![License](https://poser.pugx.org/frankyso/ipaymu/license)](https://packagist.org/packages/frankyso/ipaymu)
 
 The easiest way to integrate your website into [iPaymu payment gateway](https://ipaymu.com).
 
