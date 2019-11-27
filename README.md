@@ -3,7 +3,7 @@ iPaymu-php
 
 iPaymu-PHP API Library helps you integrate your website to iPaymu more easy.
 
-[![Build Status](https://travis-ci.org/frankyso/ipaymu.svg?branch=4.x)](https://travis-ci.org/frankyso/ipaymu)
+[![Build Status](https://travis-ci.org/frankyso/ipaymu.svg?branch=master)](https://travis-ci.org/frankyso/ipaymu)
 [![Latest Stable Version](https://poser.pugx.org/frankyso/ipaymu/v/stable)](https://packagist.org/packages/frankyso/ipaymu)
 [![Total Downloads](https://poser.pugx.org/frankyso/ipaymu/downloads)](https://packagist.org/packages/frankyso/ipaymu)
 [![Latest Unstable Version](https://poser.pugx.org/frankyso/ipaymu/v/unstable)](https://packagist.org/packages/frankyso/ipaymu)
