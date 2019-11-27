@@ -1,6 +1,6 @@
 {
   "name": "frankyso/ipaymu",
-  "description": "iPaymu PHP Package",
+  "description": "iPaymu-PHP API Package Library",
   "type": "library",
   "require-dev": {
     "fzaninotto/faker": "^1.9@dev",
