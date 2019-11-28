@@ -14,39 +14,41 @@ class iPaymu
     use CurlTrait;
 
     /**
-     * iPaymu Api Key
+     * iPaymu Api Key.
      *
-     * @var $apiKey
+     * @var
      */
     protected $apiKey;
 
     /**
-     * @var $cart Cart, Cart Object Builder
+     * @var Cart, Cart Object Builder
      */
     protected $cart;
 
     /**
-     * @var $ureturn , Url redirect after payment page
+     * @var , Url redirect after payment page
      */
     protected $ureturn;
 
     /**
-     * @var $unotify , Url Notify when transaction paid
+     * @var , Url Notify when transaction paid
      */
     protected $unotify;
 
     /**
-     * @var $ucancel , Url Redirect when user cancel the transaction
+     * @var , Url Redirect when user cancel the transaction
      */
     protected $ucancel;
 
     /**
      * iPaymu constructor.
-     * @param null $apiKey
+     *
+     * @param null  $apiKey
      * @param array $url
+     *
      * @throws ApiKeyNotFound
      */
-    public function __construct($apiKey = null, $url = ["", "", ""])
+    public function __construct($apiKey = null, $url = ['', '', ''])
     {
         $this->setApiKey($apiKey);
         $this->cart = new Cart($this);
@@ -56,7 +58,7 @@ class iPaymu
     }
 
     /**
-     * Set Api Key
+     * Set Api Key.
      *
      * @return mixed
      */
@@ -114,9 +116,10 @@ class iPaymu
     }
 
     /**
-     * Get ApiKey Value
+     * Get ApiKey Value.
      *
      * @param null $apiKey Api Key from iPaymu Dashboard.
+     *
      * @throws ApiKeyNotFound
      */
     public function setApiKey($apiKey = null)
@@ -128,15 +131,17 @@ class iPaymu
     }
 
     /**
-     * Check if Api Key inserted is valid or not
+     * Check if Api Key inserted is valid or not.
+     *
+     * @throws \Exception
      *
      * @return bool
-     * @throws \Exception
      */
     public function isApiKeyValid()
     {
         try {
             $this->checkBalance();
+
             return true;
         } catch (ApiKeyInvalid $e) {
             return false;
@@ -144,20 +149,20 @@ class iPaymu
     }
 
     /**
-     * Check Balance
+     * Check Balance.
      */
     public function checkBalance()
     {
         $response = $this->request(Resource::$BALANCE, [
-            "key" => $this->apiKey,
-            "format" => 'json'
+            'key'    => $this->apiKey,
+            'format' => 'json',
         ]);
 
         return $response;
     }
 
     /**
-     * Get Cart Object
+     * Get Cart Object.
      *
      * @return Cart
      */
@@ -167,7 +172,7 @@ class iPaymu
     }
 
     /**
-     * Check Transactions
+     * Check Transactions.
      *
      * @deprecated
      */
@@ -175,9 +180,7 @@ class iPaymu
     {
         return $this->request(Resource::$TRANSACTION, [
             'key' => $this->apiKey,
-            'id' => $id
+            'id'  => $id,
         ]);
     }
 }
-
-?>

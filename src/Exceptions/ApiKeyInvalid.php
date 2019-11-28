@@ -9,5 +9,4 @@ use Exception;
 
 class ApiKeyInvalid extends Exception
 {
-
 }

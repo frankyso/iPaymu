@@ -12,6 +12,7 @@ class Cart
 
     /**
      * Cart constructor.
+     *
      * @param iPaymu $iPaymu
      */
     public function __construct(iPaymu $iPaymu)
@@ -25,10 +26,10 @@ class Cart
     public function add($id, $name, $quantity, $price)
     {
         $this->items[] = [
-            'id' => $id,
-            'name' => $name,
+            'id'       => $id,
+            'name'     => $name,
             'quantity' => $quantity,
-            'price' => $price,
+            'price'    => $price,
         ];
     }
 
@@ -46,18 +47,20 @@ class Cart
 
     /**
      * @param string $comments
+     *
      * @return mixed
      */
-    public function checkout($comments = "")
+    public function checkout($comments = '')
     {
         return $this->iPaymu->request(Resource::$PAYMENT, $this->buildParams($comments));
     }
 
     /**
      * @param string $comments
+     *
      * @return mixed
      */
-    private function buildParams($comments = "")
+    private function buildParams($comments = '')
     {
         $productsName = [];
         $productsPrice = [];
