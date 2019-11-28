@@ -12,8 +12,10 @@ trait CurlTrait
     /**
      * @param $resource
      * @param $params
-     * @return mixed
+     *
      * @throws ApiKeyInvalid
+     *
+     * @return mixed
      */
     public function request($resource, $params)
     {
@@ -22,15 +24,16 @@ trait CurlTrait
         curl_setopt($ch, CURLOPT_URL, $resource);
         curl_setopt($ch, CURLOPT_POST, count($params));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $params_string);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
         $request = curl_exec($ch);
 
         if ($request === false) {
-            echo 'Curl Error: ' . curl_error($ch);
+            echo 'Curl Error: '.curl_error($ch);
         } else {
             $result = $this->responseHandler(json_decode($request, true));
+
             return $result;
         }
 
@@ -40,13 +43,15 @@ trait CurlTrait
 
     /**
      * @param $response
-     * @return mixed
+     *
      * @throws ApiKeyInvalid
+     *
+     * @return mixed
      */
     private function responseHandler($response)
     {
         switch (@$response['Status']) {
-            case "-1001":
+            case '-1001':
                 throw new ApiKeyInvalid();
             default:
                 return $response;

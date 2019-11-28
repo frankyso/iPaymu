@@ -2,10 +2,8 @@
 /**
  * @author Franky So <frankyso.mail@gmail.com>
  */
-
 use Faker\Factory;
 use frankyso\iPaymu\iPaymu;
-use frankyso\iPaymu\Product;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -44,7 +42,7 @@ final class CartTest extends TestCase
             $iPaymu->cart()->add($faker->uuid, $faker->name, rand(1, 5), rand(10000, 1000000));
         }
 
-        $response = $iPaymu->cart()->checkout("no comment");
+        $response = $iPaymu->cart()->checkout('no comment');
         $this->assertArrayHasKey('url', $response);
     }
 }

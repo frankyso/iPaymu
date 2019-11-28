@@ -16,7 +16,7 @@ final class GeneralTest extends TestCase
 
     public function testCheckApiKeyFailure()
     {
-        $this->assertEquals(false, (new iPaymu("123j12lkdasjfoisadoj"))->isApiKeyValid());
+        $this->assertEquals(false, (new iPaymu('123j12lkdasjfoisadoj'))->isApiKeyValid());
     }
 
     public function testCheckBalance(): void
@@ -24,5 +24,4 @@ final class GeneralTest extends TestCase
         $iPaymu = new iPaymu($_SERVER['APP_KEY']);
         $this->assertArrayHasKey('Saldo', $iPaymu->checkBalance());
     }
-
 }
