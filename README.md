@@ -8,6 +8,7 @@ The easiest way to integrate your website into [iPaymu payment gateway](https://
 [![Total Downloads](https://poser.pugx.org/frankyso/ipaymu/downloads)](https://packagist.org/packages/frankyso/ipaymu)
 [![Latest Unstable Version](https://poser.pugx.org/frankyso/ipaymu/v/unstable)](https://packagist.org/packages/frankyso/ipaymu)
 [![License](https://poser.pugx.org/frankyso/ipaymu/license)](https://packagist.org/packages/frankyso/ipaymu)
+[![StyleCI](https://github.styleci.io/repos/59740344/shield?branch=master)](https://github.styleci.io/repos/59740344)
 
 ## Installation
 The best way to use this package is using [composer](https://getcomposer.org/)
